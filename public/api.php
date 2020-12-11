@@ -67,7 +67,7 @@ $app->post(
     function (Request $request, Response $response, array $args) use ($db) {
         
         $requestData = $request->getParsedBody();
-		if(!isset($requestData[firstname]) or !isset($requestData[lastname])){
+		if(!isset($requestData['firstname']) or !isset($requestData['lastname'])){
 			        return $response->withStatus(418);
 		};
         $sql = "INSERT INTO participant (firstname, lastname) VALUES('$requestData[firstname]', '$requestData[lastname]');";
