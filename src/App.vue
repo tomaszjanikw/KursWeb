@@ -29,8 +29,10 @@
 	  this.$http.get('participants').then(response => {
         this.participants = response.body;
       });
+		
     },
 	
+
     methods: {
 		addParticipant: function(newParticipant){
 			this.$http.post('participants', newParticipant).then(response => {
@@ -38,11 +40,14 @@
 			});
       },
       onRemove: function (participantToRemove){
-        this.participants = this.participants.filter((participant) => {
-          return participant.id !== participantToRemove.id;
-        });
-      },
-    }
+		  this.$http.delete('participants/' + participantToRemove.id).then(response => {
+			this.participants = this.participants.filter((participant) => {
+			  return participant.id !== participantToRemove.id;
+			});
+			});
+		  },
+}
+    
   };
 </script>
 

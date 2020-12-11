@@ -77,11 +77,25 @@ $app->post(
     }
 );
 
+$app->delete(
+    '/api/participants/{id}',
+    function (Request $request, Response $response, array $args) use ($db) {
+        
+        $sql = "DELETE FROM participant WHERE id='$args[id]';";
+        $db->query($sql);
+        return $response->withStatus(201);
+		
+    }
+);
 $app->get(
     '/api/participants/{id}',
     function (Request $request, Response $response, array $args) use ($db) {
-        $sql = "SELECT * FROM participant WHERE id = $args[id]"; // beware! SQL Injection Attack
-        $ret = $db->query($sql);
+        $sql = "SELECT * FROM participant WHERE id =: brzoskwinka"; // beware! SQL Injection Attack
+        $stmt = $db->prepare($sql);
+		$stmt->bindValue('brzoskwinka', $args['id']);
+		$ret = $stmt->execute();
+		
+		$ret = $db->query($sql);
         $participant = $ret->fetchArray(SQLITE3_ASSOC);
         if ($participant) {
             return $response->withJson($participant);
