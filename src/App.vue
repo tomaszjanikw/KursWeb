@@ -24,15 +24,24 @@
         participants: [],
       }
     },
+	
+	mounted() {
+	  this.$http.get('participants').then(response => {
+        this.participants = response.body;
+      });
+    },
+	
     methods: {
-      addParticipant: function(newParticipant){
-        this.participants.push(newParticipant);
+		addParticipant: function(newParticipant){
+			this.$http.post('participants', newParticipant).then(response => {
+				this.participants.push(newParticipant);
+			});
       },
       onRemove: function (participantToRemove){
         this.participants = this.participants.filter((participant) => {
           return participant.id !== participantToRemove.id;
         });
-      }
+      },
     }
   };
 </script>

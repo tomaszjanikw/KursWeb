@@ -1,1 +1,14 @@
-{}
+{
+    "name": "tomek/kurs-web",
+    "authors": [
+        {
+            "name": "tomaszjanikw",
+            "email": "tomaszjanikw@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3",
+        "ext-json": "*",
+        "ext-sqlite3": "*"
+    }
+}
